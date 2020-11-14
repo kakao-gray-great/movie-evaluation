@@ -38,6 +38,241 @@
 			</form>
 		</div>
 	</nav>
+	<section class="container">
+		<form method="GET" action="./index.jsp" class="form-inline mt-3">
+			<select name="movieDivide" class="form-control mx-1 mt-2">
+				<option value="전체">전체</option>
+				<option value="한국">한국</option>
+				<option value="미국">미국</option>
+				<option value="외국">외국</option>
+			</select>
+			<input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요">
+			<button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
+			<a class="btn btn-primary mx-1 mt-2" data-toggle="modal" href="#registerModal">등록하기</a>
+			<a class="btn btn-danger mx-1 mt-2" data-toggle="modal" href="#reportModal">신고</a>
+		</form>
+		<div class="card bg-light mt-3">
+			<div class="card-header bg-light">
+				<div class="row">
+					<div class="col-8 text-left">도둑들&nbsp;<small>최동훈</small></div> 
+					<div class="col-4 text-right">
+						종합<span style="color: red;">10</span>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">
+					전지현 이뻐요.&nbsp;
+				</h5>
+				<p class="card-text">전지현 때문에 봤는데 역시 전지현이네요.</p>
+				<div class="row">
+					<div class="col-9 text-left">
+						스토리<span style="color: red;">10</span>
+						영상<span style="color: red;">8</span>
+						인물<span style="color: red;">10</span>
+						<span style="color: green;">(추천: 140)</span>
+					</div>
+					<div class="col-3 text-right">
+						<a onclick="return confirm('추천하시겠습니까?')" href="./likeAction.jsp?evalutionID=">추천</a>
+						<a onclick="return confirm('삭제하시겠습니까?')" href="./deleteAction.jsp?evalutionID=">삭제</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card bg-light mt-3">
+			<div class="card-header bg-light">
+				<div class="row">
+					<div class="col-8 text-left">바람바람바람&nbsp;<small>이병헌</small></div> 
+					<div class="col-4 text-right">
+						종합<span style="color: red;">6</span>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">
+					그저그렇네요&nbsp;
+				</h5>
+				<p class="card-text">그냥 그래요</p>
+				<div class="row">
+					<div class="col-9 text-left">
+						스토리<span style="color: red;">6</span>
+						영상<span style="color: red;">6</span>
+						인물<span style="color: red;">6</span>
+						<span style="color: green;">(추천: 40)</span>
+					</div>
+					<div class="col-3 text-right">
+						<a onclick="return confirm('추천하시겠습니까?')" href="./likeAction.jsp?evalutionID=">추천</a>
+						<a onclick="return confirm('삭제하시겠습니까?')" href="./deleteAction.jsp?evalutionID=">삭제</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card bg-light mt-3">
+			<div class="card-header bg-light">
+				<div class="row">
+					<div class="col-8 text-left">돈&nbsp;<small>박누리</small></div> 
+					<div class="col-4 text-right">
+						종합<span style="color: red;">8</span>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">
+					류준열 멋있다.&nbsp;
+				</h5>
+				<p class="card-text">주식하자.</p>
+				<div class="row">
+					<div class="col-9 text-left">
+						스토리<span style="color: red;">8</span>
+						영상<span style="color: red;">9</span>
+						인물<span style="color: red;">7</span>
+						<span style="color: green;">(추천: 100)</span>
+					</div>
+					<div class="col-3 text-right">
+						<a onclick="return confirm('추천하시겠습니까?')" href="./likeAction.jsp?evalutionID=">추천</a>
+						<a onclick="return confirm('삭제하시겠습니까?')" href="./deleteAction.jsp?evalutionID=">삭제</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal">평가 등록</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="./evaluationRegisterAction.jsp" method="POST">
+						<div class="form-row">
+							<div class="form-group col-sm-6">
+								<label>영화 제목</label>
+								<input type="text" name="movieName" class="form-control" maxlength="20">
+							</div>
+							<div class="form-group col-sm-6">
+								<label>감독</label>
+								<input type="text" name="directorName" class="form-control" maxlength="20">
+							</div>
+						</div>
+						<div class="form-group">
+							<label>제목</label>
+							<input type="text" name="evaluationTitle" class="form-control" maxlength="30">
+						</div>
+						<div class="form-group">
+							<label>내용</label>
+							<textarea name="evaluationContent" class="form-control" maxlength="2048" style="height:180px;"></textarea>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-sm-3">
+								<label>종합</label>
+								<select name="totalScore" class="form-control">
+									<option value="10" selected>10</option>
+									<option value="9">9</option>
+									<option value="8">8</option>
+									<option value="7">7</option>
+									<option value="6">6</option>
+									<option value="5">5</option>
+									<option value="4">4</option>
+									<option value="3">3</option>
+									<option value="2">2</option>
+									<option value="1">1</option>
+									<option value="0">0</option>				
+								</select>
+							</div>
+							<div class="form-group col-sm-3">
+								<label>스토리</label>
+								<select name="storyScore" class="form-control">
+									<option value="10" selected>10</option>
+									<option value="9">9</option>
+									<option value="8">8</option>
+									<option value="7">7</option>
+									<option value="6">6</option>
+									<option value="5">5</option>
+									<option value="4">4</option>
+									<option value="3">3</option>
+									<option value="2">2</option>
+									<option value="1">1</option>
+									<option value="0">0</option>					
+								</select>
+							</div>
+							<div class="form-group col-sm-3">
+								<label>영상</label>
+								<select name="videoScore" class="form-control">
+									<option value="10" selected>10</option>
+									<option value="9">9</option>
+									<option value="8">8</option>
+									<option value="7">7</option>
+									<option value="6">6</option>
+									<option value="5">5</option>
+									<option value="4">4</option>
+									<option value="3">3</option>
+									<option value="2">2</option>
+									<option value="1">1</option>
+									<option value="0">0</option>						
+								</select>
+							</div>
+							<div class="form-group col-sm-3">
+								<label>인물</label>
+								<select name="characterScore" class="form-control">
+									<option value="10" selected>10</option>
+									<option value="9">9</option>
+									<option value="8">8</option>
+									<option value="7">7</option>
+									<option value="6">6</option>
+									<option value="5">5</option>
+									<option value="4">4</option>
+									<option value="3">3</option>
+									<option value="2">2</option>
+									<option value="1">1</option>
+									<option value="0">0</option>					
+								</select>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+							<button type="submit" class="btn btn-primary">등록하기</button>
+						</div>
+					</form>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal">신고하기</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="./reportAction.jsp" method="POST">
+						<div class="form-group">
+							<label>신고 제목</label>
+							<input type="text" name="reportTitle" class="form-control" maxlength="30">
+						</div>
+						<div class="form-group">
+							<label>신고 내용</label>
+							<textarea name="reportContent" class="form-control" maxlength="2048" style="height:180px;"></textarea>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+							<button type="submit" class="btn btn-danger">신고하기</button>
+						</div>
+					</form>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<footer class="bg-dark mt-4 p-5 text-center" style="color:#FFFFFF;">
+		Copyright &copy; 2020 박준형 All Rights Reserved.
+	</footer>
 	<!-- jQuery 추가 -->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 	<!-- popper 추가 -->
