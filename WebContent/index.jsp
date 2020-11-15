@@ -26,9 +26,9 @@
 						회원 관리
 					</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown">
-						<a class="dropdown-item" href="#">로그인</a>
-						<a class="dropdown-item" href="#">회원가입</a>
-						<a class="dropdown-item" href="#">로그아웃</a>
+						<a class="dropdown-item" href="userLogin.jsp">로그인</a>
+						<a class="dropdown-item" href="userJoin.jsp">회원가입</a>
+						<a class="dropdown-item" href="userLogout.jsp">로그아웃</a>
 					</div>
 				</li>
 			</ul>
@@ -56,7 +56,7 @@
 				<div class="row">
 					<div class="col-8 text-left">도둑들&nbsp;<small>최동훈</small></div> 
 					<div class="col-4 text-right">
-						종합<span style="color: red;">10</span>
+						종합<span style="color: red;"> 10</span>
 					</div>
 				</div>
 			</div>
@@ -67,9 +67,9 @@
 				<p class="card-text">전지현 때문에 봤는데 역시 전지현이네요.</p>
 				<div class="row">
 					<div class="col-9 text-left">
-						스토리<span style="color: red;">10</span>
-						영상<span style="color: red;">8</span>
-						인물<span style="color: red;">10</span>
+						스토리<span style="color: red;"> 10</span>
+						영상<span style="color: red;"> 8</span>
+						인물<span style="color: red;"> 10</span>
 						<span style="color: green;">(추천: 140)</span>
 					</div>
 					<div class="col-3 text-right">
@@ -84,7 +84,7 @@
 				<div class="row">
 					<div class="col-8 text-left">바람바람바람&nbsp;<small>이병헌</small></div> 
 					<div class="col-4 text-right">
-						종합<span style="color: red;">6</span>
+						종합<span style="color: red;"> 6</span>
 					</div>
 				</div>
 			</div>
@@ -95,9 +95,9 @@
 				<p class="card-text">그냥 그래요</p>
 				<div class="row">
 					<div class="col-9 text-left">
-						스토리<span style="color: red;">6</span>
-						영상<span style="color: red;">6</span>
-						인물<span style="color: red;">6</span>
+						스토리<span style="color: red;"> 6</span>
+						영상<span style="color: red;"> 6</span>
+						인물<span style="color: red;"> 6</span>
 						<span style="color: green;">(추천: 40)</span>
 					</div>
 					<div class="col-3 text-right">
@@ -112,7 +112,7 @@
 				<div class="row">
 					<div class="col-8 text-left">돈&nbsp;<small>박누리</small></div> 
 					<div class="col-4 text-right">
-						종합<span style="color: red;">8</span>
+						종합<span style="color: red;"> 8</span>
 					</div>
 				</div>
 			</div>
@@ -123,9 +123,9 @@
 				<p class="card-text">주식하자.</p>
 				<div class="row">
 					<div class="col-9 text-left">
-						스토리<span style="color: red;">8</span>
-						영상<span style="color: red;">9</span>
-						인물<span style="color: red;">7</span>
+						스토리<span style="color: red;"> 8</span>
+						영상<span style="color: red;"> 9</span>
+						인물<span style="color: red;"> 7</span>
 						<span style="color: green;">(추천: 100)</span>
 					</div>
 					<div class="col-3 text-right">
