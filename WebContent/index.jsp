@@ -152,9 +152,17 @@
 								<label>영화 제목</label>
 								<input type="text" name="movieName" class="form-control" maxlength="20">
 							</div>
-							<div class="form-group col-sm-6">
+							<div class="form-group col-sm-3">
 								<label>감독</label>
 								<input type="text" name="directorName" class="form-control" maxlength="20">
+							</div>
+							<div class="form-group col-sm-3">
+								<label>장르</label>
+								<select name="genre" class="form-control">
+									<option value="한국" selected>한국</option>
+									<option value="미국">미국</option>
+									<option value="외국">외국</option>
+								</select>
 							</div>
 						</div>
 						<div class="form-group">

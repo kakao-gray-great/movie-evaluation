@@ -1,0 +1,31 @@
+// USER 테이블 만들기
+CREATE TABLE USER (
+	userID varchar(20) PRIMARY KEY,
+	userPassword varchar(64),
+	userEmail varchar(50),
+	userEmailHash varchar(64),
+	userEmailChecked boolean
+);
+
+// 평가 테이블 만들기
+CREATE TABLE EVALUATION (
+	evaluationID int PRIMARY KEY AUTO_INCREMENT,
+	userID varchar(20),
+	movieName varchar(50),
+	directorName varchar(20),
+	genre varchar(10),
+	evaluationTitle varchar(50),
+	eaaluationTitle varchar(2048),
+	totalScore varchar(5),
+	storyScore varchar(5),
+	videoScore varchar(5),
+	characterScore varchar(5),
+	likeCount int
+);
+
+// 좋아요 테이블 만들기
+CREATE TABLE LIKEY (
+	userID varchar(20),
+	evaluationID int,
+	userIP varchar(50)
+);
