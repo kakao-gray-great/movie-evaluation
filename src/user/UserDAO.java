@@ -81,7 +81,7 @@ public class UserDAO {
 				e.printStackTrace();
 			}
 		}
-		return -1; // 
+		return -1; 
 	}
 	
 	public String getUserEmail(String userID) {

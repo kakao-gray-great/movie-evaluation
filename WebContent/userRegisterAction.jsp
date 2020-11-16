@@ -24,6 +24,7 @@
 		script.println("history.back();");
 		script.println("</script>");
 		script.close();
+		return;
 	} else {
 		UserDAO userDAO = new UserDAO();
 		int result = userDAO.join(new UserDTO(userID, userPassword, userEmail, SHA256.getSHA256(userEmail), false));
@@ -34,6 +35,7 @@
 			script.println("history.back();");
 			script.println("</script>");
 			script.close();
+			return;
 		} else {
 			session.setAttribute("userID", userID);
 			PrintWriter script = response.getWriter();
@@ -41,6 +43,7 @@
 			script.println("location.href = 'emailSendAction.jsp';");
 			script.println("</script>");
 			script.close();
+			return;
 		}
 	}
 %>
