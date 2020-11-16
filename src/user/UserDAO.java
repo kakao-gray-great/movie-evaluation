@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 
 import util.DatabaseUtil;
 
-public class userDAO {
+public class UserDAO {
 	
 	public int login(String userID, String userPassword) {
 		String SQL = "SELECT userPassword FROM USER WHERE userID = ?";
@@ -49,7 +49,7 @@ public class userDAO {
 		return -2; // DB ¿À·ù
 	}
 	
-	public int join (userDTO user) {
+	public int join (UserDTO user) {
 		String SQL = "INSERT INTO USER VALUE (?, ?, ?, ?, false)";
 		Connection conn = null;
 		PreparedStatement pstmt = null;

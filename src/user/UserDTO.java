@@ -1,16 +1,16 @@
 package user;
 
-public class userDTO {
+public class UserDTO {
 	private String userID;
 	private String userPassword;
 	private String userEmail;
 	private String userEmailHash;
 	private boolean userEmailChecked;
 	
-	public userDTO() {
+	public UserDTO() {
 		
 	}
-	public userDTO(String userID, String userPassword, String userEmail, String userEmailHash,
+	public UserDTO(String userID, String userPassword, String userEmail, String userEmailHash,
 			boolean userEmailChecked) {
 		this.userID = userID;
 		this.userPassword = userPassword;
