@@ -11,15 +11,15 @@ CREATE TABLE USER (
 CREATE TABLE EVALUATION (
 	evaluationID int PRIMARY KEY AUTO_INCREMENT,
 	userID varchar(20),
-	movieName varchar(50),
+	movieTitle varchar(50),
 	directorName varchar(20),
 	genre varchar(10),
 	evaluationTitle varchar(50),
-	eaaluationTitle varchar(2048),
-	totalScore varchar(5),
-	storyScore varchar(5),
-	videoScore varchar(5),
-	characterScore varchar(5),
+	evaluationContent varchar(2048),
+	totalScore int,
+	storyScore int,
+	videoScore int,
+	characterScore int,
 	likeCount int
 );
 

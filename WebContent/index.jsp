@@ -185,7 +185,7 @@
 						<div class="form-row">
 							<div class="form-group col-sm-6">
 								<label>영화 제목</label>
-								<input type="text" name="movieName" class="form-control" maxlength="20">
+								<input type="text" name="movieTitle" class="form-control" maxlength="20">
 							</div>
 							<div class="form-group col-sm-3">
 								<label>감독</label>
