@@ -22,7 +22,7 @@
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('로그인을 해주세요.');");
-			script.println("location.href = 'userLogin.jsp");
+			script.println("location.href = 'userLogin.jsp'");
 			script.println("</script>");
 			script.close();
 			return;
@@ -31,7 +31,7 @@
 		if (emailChecked == false) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href = 'emailSendConfirm.jsp");
+			script.println("location.href = 'emailSendConfirm.jsp'");
 			script.println("</script>");
 			script.close();
 			return;

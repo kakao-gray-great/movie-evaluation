@@ -5,7 +5,6 @@
 	request.setCharacterEncoding("UTF-8");
 	String userID = null;
 	String userPassword = null;
-	String userEmail = null;
 	if(request.getParameter("userID") != null) {
 		userID = (String) request.getParameter("userID");
 	}
