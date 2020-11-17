@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="evaluation.EvaluationDTO"%>
 <%@ page import="evaluation.EvaluationDAO"%>
-<%@ page import="util.SHA256"%>
 <%@ page import="java.io.PrintWriter"%>
 <%
 	request.setCharacterEncoding("UTF-8");
