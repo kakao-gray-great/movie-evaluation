@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="user.UserDAO" %>
+<%@ page import="evaluation.EvaluationDTO" %>
+<%@ page import="evaluation.EvaluationDAO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.net.URLEncoder" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +18,28 @@
 </head>
 <body>
 	<%
+		request.setCharacterEncoding("UTF-8");
+		String genre = "전체";
+		String searchType = "최신순";
+		String search = "";
+		int pageNumber = 0;
+		if (request.getParameter("genre") != null) {
+			genre = request.getParameter("genre");
+		}
+		if (request.getParameter("searchType") != null) {
+			searchType = request.getParameter("searchType");
+		}
+		if (request.getParameter("search") != null) {
+			search = request.getParameter("search");
+		}
+		if (request.getParameter("pageNumber") != null) {
+			try {
+				pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+			} catch (Exception e) {
+				System.out.println("검색 페이지 번호 오류");
+			}
+			
+		}
 		String userID = null;
 		if (session.getAttribute("userID") != null) {
 			userID = (String)session.getAttribute("userID");
@@ -67,19 +93,23 @@
 					</div>
 				</li>
 			</ul>
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요." aria-label="Search">
+			<form action="./index.jsp" method="GET" class="form-inline my-2 my-lg-0">
+				<input type="text" class="form-control mr-sm-2" name="search" placeholder="내용을 입력하세요." aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 			</form>
 		</div>
 	</nav>
 	<section class="container">
 		<form method="GET" action="./index.jsp" class="form-inline mt-3">
-			<select name="movieDivide" class="form-control mx-1 mt-2">
+			<select name="genre" class="form-control mx-1 mt-2">
 				<option value="전체">전체</option>
-				<option value="한국">한국</option>
-				<option value="미국">미국</option>
-				<option value="외국">외국</option>
+				<option value="한국" <% if(genre.contentEquals("한국")) out.println("selected"); %>>한국</option>
+				<option value="미국" <% if(genre.contentEquals("미국")) out.println("selected"); %>>미국</option>
+				<option value="외국" <% if(genre.contentEquals("외국")) out.println("selected"); %>>외국</option>
+			</select>
+			<select name="searchType" class="form-control mx-1 mt-2">
+				<option value="최신순">최신순</option>
+				<option value="추천순" <% if(genre.contentEquals("추천순")) out.println("selected"); %>>추천순</option>
 			</select>
 			<input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요">
 			<button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
