@@ -116,26 +116,34 @@
 			<a class="btn btn-primary mx-1 mt-2" data-toggle="modal" href="#registerModal">등록하기</a>
 			<a class="btn btn-danger mx-1 mt-2" data-toggle="modal" href="#reportModal">신고</a>
 		</form>
+		<%
+			ArrayList<EvaluationDTO> evaluationList = new ArrayList<EvaluationDTO>();
+			evaluationList = new EvaluationDAO().getList(genre, searchType, search, pageNumber);
+			if (evaluationList != null) {
+				for (int i = 0; i < evaluationList.size(); i++) {
+					if (i == 5)	break;
+					EvaluationDTO evaluation = evaluationList.get(i);
+		%>
 		<div class="card bg-light mt-3">
 			<div class="card-header bg-light">
 				<div class="row">
-					<div class="col-8 text-left">도둑들&nbsp;<small>최동훈</small></div> 
+					<div class="col-8 text-left"><%= evaluation.getMovieTitle() %>&nbsp;<small><%= evaluation.getDirectorName() %></small></div> 
 					<div class="col-4 text-right">
-						종합<span style="color: red;"> 10</span>
+						종합<span style="color: red;"> <%=evaluation.getTotalScore() %></span>
 					</div>
 				</div>
 			</div>
 			<div class="card-body">
 				<h5 class="card-title">
-					전지현 이뻐요.&nbsp;
+					<%= evaluation.getEvaluationTitle() %>&nbsp;
 				</h5>
-				<p class="card-text">전지현 때문에 봤는데 역시 전지현이네요.</p>
+				<p class="card-text"><%= evaluation.getEvaluationContent() %></p>
 				<div class="row">
 					<div class="col-9 text-left">
-						스토리<span style="color: red;"> 10</span>
-						영상<span style="color: red;"> 8</span>
-						인물<span style="color: red;"> 10</span>
-						<span style="color: green;">(추천: 140)</span>
+						스토리<span style="color: red;"> <%= evaluation.getStoryScore() %></span>
+						영상<span style="color: red;"> <%= evaluation.getVideoScore() %></span>
+						인물<span style="color: red;"> <%= evaluation.getCharacterScore() %></span>
+						<span style="color: green;">(추천: <%= evaluation.getLikeCount() %>)</span>
 					</div>
 					<div class="col-3 text-right">
 						<a onclick="return confirm('추천하시겠습니까?')" href="./likeAction.jsp?evalutionID=">추천</a>
@@ -144,63 +152,45 @@
 				</div>
 			</div>
 		</div>
-		<div class="card bg-light mt-3">
-			<div class="card-header bg-light">
-				<div class="row">
-					<div class="col-8 text-left">바람바람바람&nbsp;<small>이병헌</small></div> 
-					<div class="col-4 text-right">
-						종합<span style="color: red;"> 6</span>
-					</div>
-				</div>
-			</div>
-			<div class="card-body">
-				<h5 class="card-title">
-					그저그렇네요&nbsp;
-				</h5>
-				<p class="card-text">그냥 그래요</p>
-				<div class="row">
-					<div class="col-9 text-left">
-						스토리<span style="color: red;"> 6</span>
-						영상<span style="color: red;"> 6</span>
-						인물<span style="color: red;"> 6</span>
-						<span style="color: green;">(추천: 40)</span>
-					</div>
-					<div class="col-3 text-right">
-						<a onclick="return confirm('추천하시겠습니까?')" href="./likeAction.jsp?evalutionID=">추천</a>
-						<a onclick="return confirm('삭제하시겠습니까?')" href="./deleteAction.jsp?evalutionID=">삭제</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="card bg-light mt-3">
-			<div class="card-header bg-light">
-				<div class="row">
-					<div class="col-8 text-left">돈&nbsp;<small>박누리</small></div> 
-					<div class="col-4 text-right">
-						종합<span style="color: red;"> 8</span>
-					</div>
-				</div>
-			</div>
-			<div class="card-body">
-				<h5 class="card-title">
-					류준열 멋있다.&nbsp;
-				</h5>
-				<p class="card-text">주식하자.</p>
-				<div class="row">
-					<div class="col-9 text-left">
-						스토리<span style="color: red;"> 8</span>
-						영상<span style="color: red;"> 9</span>
-						인물<span style="color: red;"> 7</span>
-						<span style="color: green;">(추천: 100)</span>
-					</div>
-					<div class="col-3 text-right">
-						<a onclick="return confirm('추천하시겠습니까?')" href="./likeAction.jsp?evalutionID=">추천</a>
-						<a onclick="return confirm('삭제하시겠습니까?')" href="./deleteAction.jsp?evalutionID=">삭제</a>
-					</div>
-				</div>
-			</div>
-		</div>
+		<%
+				}
+			}
+		%>
 	</section>
+	<ul class="pagination justify-content-center mt-3">
+		<li class="page-item">
+		<%
+			if (pageNumber <= 0) {
+		%>
+				<a class="page-link disabled">이전</a>
+		<%
+			} else {
+		%>
+				<a class="page-link" href="./index.jsp?genre=<%= URLEncoder.encode(genre, "UTF-8") %>&searchType=
+				<%= URLEncoder.encode(searchType, "UTF-8") %>&search=<%= URLEncoder.encode(search, "UTF-8") %>&pageNumber=
+				<%=pageNumber -1 %>">이전</a>
+		<%
+			}
+		%>
+		</li>
+		<li class="page-item">
+		<%
+			if (evaluationList.size() < 6) {
+		%>
+				<a class="page-link disabled">다음</a>
+		<%
+			} else {
+		%>
+				<a class="page-link" href="./index.jsp?genre=<%= URLEncoder.encode(genre, "UTF-8") %>&searchType=
+				<%= URLEncoder.encode(searchType, "UTF-8") %>&search=<%= URLEncoder.encode(search, "UTF-8") %>&pageNumber=
+				<%=pageNumber + 1 %>">다음</a>
+		<%
+			}
+		%>
+		
+		</li>
+		
+	</ul>
 	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
