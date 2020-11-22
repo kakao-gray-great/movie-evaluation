@@ -17,12 +17,12 @@ public class EvaluationDAO {
 		try {
 			conn = DatabaseUtil.getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, evaluationDTO.getUserID());
-			pstmt.setString(2, evaluationDTO.getMovieTitle());
-			pstmt.setString(3, evaluationDTO.getDirectorName());
-			pstmt.setString(4, evaluationDTO.getGenre());
-			pstmt.setString(5, evaluationDTO.getEvaluationTitle());
-			pstmt.setString(6, evaluationDTO.getEvaluationContent());
+			pstmt.setString(1, evaluationDTO.getUserID().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(2, evaluationDTO.getMovieTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(3, evaluationDTO.getDirectorName().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(4, evaluationDTO.getGenre().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(5, evaluationDTO.getEvaluationTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(6, evaluationDTO.getEvaluationContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
 			pstmt.setInt(7, evaluationDTO.getTotalScore());
 			pstmt.setInt(8, evaluationDTO.getStoryScore());
 			pstmt.setInt(9, evaluationDTO.getVideoScore());
