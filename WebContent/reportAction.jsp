@@ -1,6 +1,6 @@
-<%@page import="javax.mail.internet.InternetAddress"%>
+<%@ page import="javax.mail.internet.InternetAddress"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="javax.mail.internet.MimeMessage"%>
+<%@ page import="javax.mail.internet.MimeMessage"%>
 <%@ page import="javax.mail.*" %>
 <%@ page import="java.util.Properties" %>
 <%@ page import="util.Gmail" %>
