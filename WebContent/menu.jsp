@@ -18,7 +18,7 @@
 					
 					<%
 						String userID = request.getParameter("userID");
-						if (userID == null) {
+						if (userID.equals("null")) {
 					%>		
 							<a class="dropdown-item" href="userLogin.jsp">로그인</a>
 							<a class="dropdown-item" href="userJoin.jsp">회원가입</a>
