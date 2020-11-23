@@ -29,3 +29,6 @@ CREATE TABLE LIKEY (
 	evaluationID int,
 	userIP varchar(50)
 );
+
+// 좋아요 테이블 primary key 설정
+ALTER TABLE LIKEY ADD PRIMARY KEY (userID, evaluationID);

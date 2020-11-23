@@ -78,15 +78,16 @@
 						회원 관리
 					</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown">
+					
 					<%
 						if (userID == null) {
-					%>
-						<a class="dropdown-item" href="userLogin.jsp">로그인</a>
-						<a class="dropdown-item" href="userJoin.jsp">회원가입</a>
+					%>		
+							<a class="dropdown-item" href="userLogin.jsp">로그인</a>
+							<a class="dropdown-item" href="userJoin.jsp">회원가입</a>
 					<%
 						} else {
 					%>
-						<a class="dropdown-item" href="userLogout.jsp">로그아웃</a>
+							<a class="dropdown-item" href="userLogout.jsp">로그아웃</a>
 					<%
 						}
 					%>
@@ -333,9 +334,7 @@
 			</div>
 		</div>
 	</div>
-	<footer class="bg-dark mt-4 p-5 text-center" style="color:#FFFFFF;">
-		Copyright &copy; 2020 박준형 All Rights Reserved.
-	</footer>
+	<%@ include file="footer.jsp" %>
 	<!-- jQuery 추가 -->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 	<!-- popper 추가 -->
