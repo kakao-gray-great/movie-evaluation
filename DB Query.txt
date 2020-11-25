@@ -30,5 +30,14 @@ CREATE TABLE LIKEY (
 	userIP varchar(50)
 );
 
+// 영화 목록 테이블 만들기
+CREATE TABLE MOVIE (
+	movieID int PRIMARY KEY AUTO_INCREMENT,
+	movieTitle varchar(50),
+	directorName varchar(20),
+	genre varchar(10),
+	fileName varchar(30)
+);
+
 // 좋아요 테이블 primary key 설정
 ALTER TABLE LIKEY ADD PRIMARY KEY (userID, evaluationID);

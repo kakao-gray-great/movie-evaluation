@@ -1,4 +1,4 @@
-package evaluation;
+package movie;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,27 +7,26 @@ import java.util.ArrayList;
 
 import util.DatabaseUtil;
 
-public class EvaluationDAO {
+public class MovieDAO {
 	
-	public int write(EvaluationDTO evaluationDTO) {
-		String SQL = "INSERT INTO EVALUATION VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0);";
+	public int write(MovieDTO evaluationDTO) {
+		String SQL = "INSERT INTO EVALUATION VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0);";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			conn = DatabaseUtil.getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, evaluationDTO.getEvaluationMovieID());
-			pstmt.setString(2, evaluationDTO.getUserID().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(3, evaluationDTO.getMovieTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(4, evaluationDTO.getDirectorName().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(5, evaluationDTO.getGenre().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(6, evaluationDTO.getEvaluationTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(7, evaluationDTO.getEvaluationContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setInt(8, evaluationDTO.getTotalScore());
-			pstmt.setInt(9, evaluationDTO.getStoryScore());
-			pstmt.setInt(10, evaluationDTO.getVideoScore());
-			pstmt.setInt(11, evaluationDTO.getCharacterScore());
+			pstmt.setString(1, evaluationDTO.getUserID().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(2, evaluationDTO.getMovieTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(3, evaluationDTO.getDirectorName().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(4, evaluationDTO.getGenre().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(5, evaluationDTO.getEvaluationTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(6, evaluationDTO.getEvaluationContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setInt(7, evaluationDTO.getTotalScore());
+			pstmt.setInt(8, evaluationDTO.getStoryScore());
+			pstmt.setInt(9, evaluationDTO.getVideoScore());
+			pstmt.setInt(10, evaluationDTO.getCharacterScore());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,11 +50,11 @@ public class EvaluationDAO {
 		return -1; 
 	}
 	
-	public ArrayList<EvaluationDTO> getList(String genre, String searchType, String search, int pageNumber) {
+	public ArrayList<MovieDTO> getList(String genre, String searchType, String search, int pageNumber) {
 		if (genre.contentEquals("ÀüÃ¼")) {
 			genre = "";
 		}
-		ArrayList<EvaluationDTO> evaluationList = null;
+		ArrayList<MovieDTO> evaluationList = null;
 		String SQL = "";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -73,23 +72,22 @@ public class EvaluationDAO {
 			pstmt.setString(1, "%" + genre + "%");
 			pstmt.setString(2, "%" + search + "%");
 			rs = pstmt.executeQuery();
-			evaluationList = new ArrayList<EvaluationDTO>();
+			evaluationList = new ArrayList<MovieDTO>();
 			
 			while(rs.next()) {
-				EvaluationDTO evaluation = new EvaluationDTO(
+				MovieDTO evaluation = new MovieDTO(
 					rs.getInt(1), 
-					rs.getInt(2),
+					rs.getString(2),
 					rs.getString(3),
 					rs.getString(4),
 					rs.getString(5),
 					rs.getString(6),
 					rs.getString(7),
-					rs.getString(8),
+					rs.getInt(8),
 					rs.getInt(9),
 					rs.getInt(10),
 					rs.getInt(11),
-					rs.getInt(12),
-					rs.getInt(13)
+					rs.getInt(12)
 				);
 				evaluationList.add(evaluation);
 			}
