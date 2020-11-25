@@ -9,4 +9,28 @@ h5 {
 }
 body {
 	font-family: 'Nanum Gothic';
+	background-color: #000;
+	color: #FFF;
+}
+
+.btn-primary {
+    color: #FFF;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+a {
+    color: #dc3545;
+}
+
+.nav-link {
+    color: #FFF;
+}
+
+.modal-header {
+	background: #343a40;
+}
+
+.modal-body {
+	background: #343a40;
 }

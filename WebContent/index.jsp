@@ -91,8 +91,8 @@
 					if (i == 5)	break;
 					EvaluationDTO evaluation = evaluationList.get(i);
 		%>
-		<div class="card bg-light mt-3">
-			<div class="card-header bg-light">
+		<div class="card bg-dark mt-3">
+			<div class="card-header bg-dark">
 				<div class="row">
 					<div class="col-8 text-left"><%= evaluation.getMovieTitle() %>&nbsp;<small><%= evaluation.getDirectorName() %></small></div> 
 					<div class="col-4 text-right">
