@@ -3,7 +3,6 @@ package evaluation;
 public class EvaluationDTO {
 	
 	private int evaluationID;
-	private int evaluationMovieID;
 	private String userID;
 	private String movieTitle;
 	private String directorName;
@@ -16,11 +15,10 @@ public class EvaluationDTO {
 	private int characterScore;
 	private int likeCount;
 	
-	public EvaluationDTO(int evaluationID, int evaluationMovieID, String userID, String movieTitle, String directorName, String genre,
+	public EvaluationDTO(int evaluationID, String userID, String movieTitle, String directorName, String genre,
 			String evaluationTitle, String evaluationContent, int totalScore, int storyScore, int videoScore,
 			int characterScore, int likeCount) {
 		this.evaluationID = evaluationID;
-		this.evaluationMovieID = evaluationMovieID;
 		this.userID = userID;
 		this.movieTitle = movieTitle;
 		this.directorName = directorName;
@@ -40,15 +38,6 @@ public class EvaluationDTO {
 
 	public void setEvaluationID(int evaluationID) {
 		this.evaluationID = evaluationID;
-	}
-
-	
-	public int getEvaluationMovieID() {
-		return evaluationMovieID;
-	}
-
-	public void setEvaluationMovieID(int evaluationMovieID) {
-		this.evaluationMovieID = evaluationMovieID;
 	}
 
 	public String getUserID() {

@@ -10,24 +10,23 @@ import util.DatabaseUtil;
 public class EvaluationDAO {
 	
 	public int write(EvaluationDTO evaluationDTO) {
-		String SQL = "INSERT INTO EVALUATION VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0);";
+		String SQL = "INSERT INTO EVALUATION VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0);";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			conn = DatabaseUtil.getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, evaluationDTO.getEvaluationMovieID());
-			pstmt.setString(2, evaluationDTO.getUserID().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(3, evaluationDTO.getMovieTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(4, evaluationDTO.getDirectorName().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(5, evaluationDTO.getGenre().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(6, evaluationDTO.getEvaluationTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(7, evaluationDTO.getEvaluationContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setInt(8, evaluationDTO.getTotalScore());
-			pstmt.setInt(9, evaluationDTO.getStoryScore());
-			pstmt.setInt(10, evaluationDTO.getVideoScore());
-			pstmt.setInt(11, evaluationDTO.getCharacterScore());
+			pstmt.setString(1, evaluationDTO.getUserID().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(2, evaluationDTO.getMovieTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(3, evaluationDTO.getDirectorName().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(4, evaluationDTO.getGenre().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(5, evaluationDTO.getEvaluationTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(6, evaluationDTO.getEvaluationContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setInt(7, evaluationDTO.getTotalScore());
+			pstmt.setInt(8, evaluationDTO.getStoryScore());
+			pstmt.setInt(9, evaluationDTO.getVideoScore());
+			pstmt.setInt(10, evaluationDTO.getCharacterScore());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,7 +51,7 @@ public class EvaluationDAO {
 	}
 	
 	public ArrayList<EvaluationDTO> getList(String genre, String searchType, String search, int pageNumber) {
-		if (genre.contentEquals("ÀüÃ¼")) {
+		if (genre.contentEquals("ì „ì²´")) {
 			genre = "";
 		}
 		ArrayList<EvaluationDTO> evaluationList = null;
@@ -61,10 +60,10 @@ public class EvaluationDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			if (searchType.contentEquals("ÃÖ½Å¼ø")) {
+			if (searchType.contentEquals("ìµœì‹ ìˆœ")) {
 				SQL = "SELECT * FROM EVALUATION WHERE genre LIKE ? AND CONCAT(movieTitle, directorName, evaluationTitle, evaluationContent) Like" +
 						"? ORDER BY evaluationID DESC LIMIT " + pageNumber * 5 + ", " + pageNumber * 5 + 6;
-			} else if (searchType.contentEquals("ÃßÃµ¼ø")) {
+			} else if (searchType.contentEquals("ì¶”ì²œìˆœ")) {
 				SQL = "SELECT * FROM EVALUATION WHERE genre LIKE ? AND CONCAT(movieTitle, directorName, evaluationTitle, evaluationContent) Like" +
 						"? ORDER BY likeCount DESC LIMIT " + pageNumber * 5 + ", " + pageNumber * 5 + 6;
 			}
@@ -78,18 +77,17 @@ public class EvaluationDAO {
 			while(rs.next()) {
 				EvaluationDTO evaluation = new EvaluationDTO(
 					rs.getInt(1), 
-					rs.getInt(2),
+					rs.getString(2),
 					rs.getString(3),
 					rs.getString(4),
 					rs.getString(5),
 					rs.getString(6),
 					rs.getString(7),
-					rs.getString(8),
+					rs.getInt(8),
 					rs.getInt(9),
 					rs.getInt(10),
 					rs.getInt(11),
-					rs.getInt(12),
-					rs.getInt(13)
+					rs.getInt(12)
 				);
 				evaluationList.add(evaluation);
 			}
@@ -215,4 +213,3 @@ public class EvaluationDAO {
 	}
 	
 }
-
