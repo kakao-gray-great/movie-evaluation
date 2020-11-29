@@ -9,7 +9,7 @@ import util.DatabaseUtil;
 
 public class MovieDAO {
 	
-	public ArrayList<MovieDTO> getMoiveList(String genre, String searchType) {
+	public ArrayList<MovieDTO> getList(String genre) {
 		if (genre.contentEquals("전체")) {
 			genre = "";
 		}
@@ -19,14 +19,13 @@ public class MovieDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			if (searchType.contentEquals("최신순")) {
-				SQL = "SELECT * FROM MOVIE WHERE genre LIKE ? AND CONCAT(movieTitle, fileName) Like" +
-						"? ORDER BY movieID DESC ;";
-			}
+			SQL = "SELECT * FROM MOVIE WHERE genre LIKE ?;";
+			
 			conn = DatabaseUtil.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, "%" + genre + "%");
 			rs = pstmt.executeQuery();
+			
 			movieList = new ArrayList<MovieDTO>();
 			
 			while(rs.next()) {

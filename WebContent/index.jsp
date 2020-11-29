@@ -4,11 +4,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="user.UserDAO"%>
-<%@ page import="evaluation.EvaluationDTO"%>
-<%@ page import="evaluation.EvaluationDAO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.net.URLEncoder"%>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -29,20 +26,6 @@
 		int pageNumber = 0;
 		if (request.getParameter("genre") != null) {
 			genre = request.getParameter("genre");
-		}
-		if (request.getParameter("searchType") != null) {
-			searchType = request.getParameter("searchType");
-		}
-		if (request.getParameter("search") != null) {
-			search = request.getParameter("search");
-		}
-		if (request.getParameter("pageNumber") != null) {
-			try {
-				pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-			} catch (Exception e) {
-				System.out.println("검색 페이지 번호 오류");
-			}
-	
 		}
 		String userID = null;
 		if (session.getAttribute("userID") != null) {
@@ -70,28 +53,47 @@
 	<jsp:include page="menu.jsp">
 		<jsp:param value="<%=userID%>" name="userID" />
 	</jsp:include>
-	<div class="container">
+	<section class="container">
+		<form method="GET" action="./index.jsp" class="form-inline mt-3">
+			<select name="genre" class="form-control mx-1 mt-2">
+				<option value="전체">전체</option>
+				<option value="한국" <% if(genre.contentEquals("한국")) out.println("selected"); %>>한국</option>
+				<option value="미국" <% if(genre.contentEquals("미국")) out.println("selected"); %>>미국</option>
+				<option value="외국" <% if(genre.contentEquals("외국")) out.println("selected"); %>>외국</option>
+			</select>
+			<button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
+		</form>
 	<%
-			ArrayList<MovieDTO> movieList = new ArrayList<>();
-			movieList = new MovieDAO().getMoiveList();
+			ArrayList<MovieDTO> movieList = new ArrayList<MovieDTO>();
+			movieList = new MovieDAO().getList(genre);
+			int j = 0;
 			if (movieList != null) {
-				for (int i = 0; i < movieList.size(); i++) {
-					for (int j = 0; j < 4; i ++) {
-						MovieDTO movie = movieList.get(i);	
+				for (int i = 0; i < (movieList.size() / 4); i++) {
+	%>			
+					<div class="row">
+	<%
+						for (; j < movieList.size(); j++) {
+							if (j % 4 == 0) {
+								break;
+							}
+							MovieDTO movie = movieList.get(j);
 	%>
-						<div class="row">
 							<div class="col-3" style="padding-top: 40px; padding-bottom: 40px">
 								<div>
-									<a href="./movieEvalution.jsp?movieID="<%=movie.getMovieID() %>>
-										<img src=<%=movie.getImageLink() %> width="100%" height="30%">
+									<a href="./movieEvalution.jsp?movieID=<%=movie.getMovieID() %>">
+										<img src="D:\\Study\\Project\\Movie-Evaluation\\image\\<%=movie.getMovieTitle() %>.png" width="100%" height="30%">
 									</a>
 								</div>
 							</div>
-						</div>
-			
-	</div>
+						}
+						
+					</div>			
 	<%
-					}
+				}			
+	%>			
+	</section>
+	<%
+					
 				}
 			}
 			
