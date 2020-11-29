@@ -9,87 +9,35 @@ import util.DatabaseUtil;
 
 public class MovieDAO {
 	
-	public int write(MovieDTO evaluationDTO) {
-		String SQL = "INSERT INTO EVALUATION VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0);";
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			conn = DatabaseUtil.getConnection();
-			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, evaluationDTO.getUserID().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(2, evaluationDTO.getMovieTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(3, evaluationDTO.getDirectorName().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(4, evaluationDTO.getGenre().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(5, evaluationDTO.getEvaluationTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(6, evaluationDTO.getEvaluationContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setInt(7, evaluationDTO.getTotalScore());
-			pstmt.setInt(8, evaluationDTO.getStoryScore());
-			pstmt.setInt(9, evaluationDTO.getVideoScore());
-			pstmt.setInt(10, evaluationDTO.getCharacterScore());
-			return pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (conn != null)	conn.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				if (pstmt != null)	pstmt.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				if (rs != null)	rs.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return -1; 
-	}
-	
-	public ArrayList<MovieDTO> getList(String genre, String searchType, String search, int pageNumber) {
+	public ArrayList<MovieDTO> getMoiveList(String genre, String searchType) {
 		if (genre.contentEquals("전체")) {
 			genre = "";
 		}
-		ArrayList<MovieDTO> evaluationList = null;
+		ArrayList<MovieDTO> movieList = null;
 		String SQL = "";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			if (searchType.contentEquals("최신순")) {
-				SQL = "SELECT * FROM EVALUATION WHERE genre LIKE ? AND CONCAT(movieTitle, directorName, evaluationTitle, evaluationContent) Like" +
-						"? ORDER BY evaluationID DESC LIMIT " + pageNumber * 5 + ", " + pageNumber * 5 + 6;
-			} else if (searchType.contentEquals("추천순")) {
-				SQL = "SELECT * FROM EVALUATION WHERE genre LIKE ? AND CONCAT(movieTitle, directorName, evaluationTitle, evaluationContent) Like" +
-						"? ORDER BY likeCount DESC LIMIT " + pageNumber * 5 + ", " + pageNumber * 5 + 6;
+				SQL = "SELECT * FROM MOVIE WHERE genre LIKE ? AND CONCAT(movieTitle, fileName) Like" +
+						"? ORDER BY movieID DESC ;";
 			}
 			conn = DatabaseUtil.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, "%" + genre + "%");
-			pstmt.setString(2, "%" + search + "%");
 			rs = pstmt.executeQuery();
-			evaluationList = new ArrayList<MovieDTO>();
+			movieList = new ArrayList<MovieDTO>();
 			
 			while(rs.next()) {
-				MovieDTO evaluation = new MovieDTO(
+				MovieDTO movie = new MovieDTO(
 					rs.getInt(1), 
 					rs.getString(2),
 					rs.getString(3),
 					rs.getString(4),
-					rs.getString(5),
-					rs.getString(6),
-					rs.getString(7),
-					rs.getInt(8),
-					rs.getInt(9),
-					rs.getInt(10),
-					rs.getInt(11),
-					rs.getInt(12)
+					rs.getString(5)
 				);
-				evaluationList.add(evaluation);
+				movieList.add(movie);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -110,18 +58,21 @@ public class MovieDAO {
 				e.printStackTrace();
 			}
 		}
-		return evaluationList;
+		return movieList;
 	}
 	
-	public int like(String evaluationID) {
-		String SQL = "UPDATE EVALUATION SET likeCount = likeCount + 1 WHERE evaluationID = ?";
+	public int write(MovieDTO movieDTO) {
+		String SQL = "INSERT INTO EVALUATION VALUES (NULL, ?, ?, ?, ?);";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			conn = DatabaseUtil.getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, Integer.parseInt(evaluationID));
+			pstmt.setString(1, movieDTO.getMovieTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(2, movieDTO.getDirectorName().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(3, movieDTO.getGenre().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(4, movieDTO.getImageLink().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -145,15 +96,15 @@ public class MovieDAO {
 		return -1; 
 	}
 	
-	public int delete(String evaluationID) {
-		String SQL = "DELETE FROM EVALUATION WHERE evaluationID = ?";
+	public int delete(String movieID) {
+		String SQL = "DELETE FROM EVALUATION WHERE movieID = ?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			conn = DatabaseUtil.getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, Integer.parseInt(evaluationID));
+			pstmt.setInt(1, Integer.parseInt(movieID));
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -175,41 +126,6 @@ public class MovieDAO {
 			}
 		}
 		return -1; 
-	}
-	
-	public String getUserID(String evaluationID) {
-		String SQL = "SELECT userID FROM EVALUATION WHERE evaluationID = ?";
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			conn = DatabaseUtil.getConnection();
-			pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, Integer.parseInt(evaluationID));
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				return rs.getString(1);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (conn != null)	conn.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				if (pstmt != null)	pstmt.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				if (rs != null)	rs.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
 	}
 	
 }
