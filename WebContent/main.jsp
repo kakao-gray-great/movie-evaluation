@@ -67,7 +67,7 @@
 		<jsp:param value="<%=userID %>" name="userID"/>
 	</jsp:include>
 	<section class="container">
-		<form method="GET" action="./index.jsp" class="form-inline mt-3">
+		<form method="GET" action="./main.jsp" class="form-inline mt-3">
 			<select name="genre" class="form-control mx-1 mt-2">
 				<option value="전체">전체</option>
 				<option value="한국" <% if(genre.contentEquals("한국")) out.println("selected"); %>>한국</option>
@@ -133,7 +133,7 @@
 		<%
 			} else {
 		%>
-				<a class="page-link" href="./index.jsp?genre=<%= URLEncoder.encode(genre, "UTF-8") %>&searchType=
+				<a class="page-link" href="./main.jsp?genre=<%= URLEncoder.encode(genre, "UTF-8") %>&searchType=
 				<%= URLEncoder.encode(searchType, "UTF-8") %>&search=<%= URLEncoder.encode(search, "UTF-8") %>&pageNumber=
 				<%=pageNumber -1 %>">이전</a>
 		<%
@@ -148,7 +148,7 @@
 		<%
 			} else {
 		%>
-				<a class="page-link" href="./index.jsp?genre=<%= URLEncoder.encode(genre, "UTF-8") %>&searchType=
+				<a class="page-link" href="./main.jsp?genre=<%= URLEncoder.encode(genre, "UTF-8") %>&searchType=
 				<%= URLEncoder.encode(searchType, "UTF-8") %>&search=<%= URLEncoder.encode(search, "UTF-8") %>&pageNumber=
 				<%=pageNumber + 1 %>">다음</a>
 		<%

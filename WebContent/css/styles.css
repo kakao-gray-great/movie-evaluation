@@ -4045,11 +4045,12 @@ input[type=button].btn-block {
   justify-content: space-between;
 }
 .navbar-brand {
+  font-family: 'Jeju Gothic';
   display: inline-block;
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   line-height: inherit;
   white-space: nowrap;
 }
@@ -4067,6 +4068,7 @@ input[type=button].btn-block {
 .navbar-nav .nav-link {
   padding-right: 0;
   padding-left: 0;
+  font-family: 'Jeju Gothic';
 }
 .navbar-nav .dropdown-menu {
   position: static;

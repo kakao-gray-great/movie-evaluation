@@ -29,7 +29,6 @@
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="./userLogin.jsp">로그인</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="./userJoin.jsp">회원가입</a></li>
                     </ul>
                 </div>
             </div>
@@ -40,7 +39,7 @@
                 <div class="mx-auto text-center">
                     <h1 class="mx-auto my-0 text-uppercase">왓플릭스</h1>
                     <h2 class="text-white-50 mx-auto mt-2 mb-5">무슨 영화가 좋을까? 이 영화는 어떨까?</h2>
-                    <a class="btn btn-primary js-scroll-trigger" href="#about">Get Started</a>
+                    <a class="btn btn-primary js-scroll-trigger" href="./main.jsp">Get Started</a>
                 </div>
             </div>
         </header>
@@ -108,66 +107,9 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- Signup-->
-        <section class="signup-section" id="signup">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10 col-lg-8 mx-auto text-center">
-                        <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-                        <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
-                        <form class="form-inline d-flex">
-                            <input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" type="email" placeholder="Enter email address..." />
-                            <button class="btn btn-primary mx-auto" type="submit">Subscribe</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Contact-->
-        <section class="contact-section bg-black">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Address</h4>
-                                <hr class="my-4" />
-                                <div class="small text-black-50">4923 Market Street, Orlando FL</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-envelope text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Email</h4>
-                                <hr class="my-4" />
-                                <div class="small text-black-50"><a href="#!">hello@yourdomain.com</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Phone</h4>
-                                <hr class="my-4" />
-                                <div class="small text-black-50">+1 (555) 902-8832</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="social d-flex justify-content-center">
-                    <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                    <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                    <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-        </section>
+        </section>   
         <!-- Footer-->
-        <footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright Â© Your Website 2020</div></footer>
+        <%@ include file="footer.jsp" %>
         <!-- Bootstrap core JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
