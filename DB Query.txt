@@ -10,7 +10,6 @@ CREATE TABLE USER (
 // 평가 테이블 만들기
 CREATE TABLE EVALUATION (
 	evaluationID int PRIMARY KEY AUTO_INCREMENT,
-	evaluationMovieID int,
 	userID varchar(20),
 	movieTitle varchar(50),
 	directorName varchar(20),
@@ -21,8 +20,7 @@ CREATE TABLE EVALUATION (
 	storyScore int,
 	videoScore int,
 	characterScore int,
-	likeCount int,
-	FOREIGN KEY (evaluationMovieID) REFERENCES MOVIE (movieID)
+	likeCount int
 );
 
 // 좋아요 테이블 만들기
@@ -30,15 +28,6 @@ CREATE TABLE LIKEY (
 	userID varchar(20),
 	evaluationID int,
 	userIP varchar(50)
-);
-
-// 영화 목록 테이블 만들기
-CREATE TABLE MOVIE (
-	movieID int PRIMARY KEY AUTO_INCREMENT,
-	movieTitle varchar(50),
-	directorName varchar(20),
-	genre varchar(10),
-	fileName varchar(30)
 );
 
 // 좋아요 테이블 primary key 설정
