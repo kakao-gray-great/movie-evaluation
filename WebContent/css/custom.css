@@ -15,12 +15,17 @@ body {
 
 .btn-primary {
     color: #FFF;
-    background-color: #dc3545;
-    border-color: #dc3545;
+    background-color: #e50914;
+    border-color: #e50914;
 }
 
 a {
-    color: #dc3545;
+    color: #e50914;
+}
+
+a:hover {
+    color: #e50914;
+    text-decoration: underline;
 }
 
 .nav-link {
@@ -33,4 +38,30 @@ a {
 
 .modal-body {
 	background: #343a40;
+}
+
+.btn-outline-success {
+	color: #e50914;
+    border-color: #e50914;
+}
+
+.btn-outline-success:hover {
+    color: #FFF;
+    border-color: #e50914;
+    background-color: #e50914;
+    
+}
+
+.btn-danger {
+    color: #FFF;
+    background-color: #e50914;
+    border-color: #e50914;
+}
+
+.page-link {
+	color: #000;
+}
+
+.page-link:hover {
+	color: #000;
 }

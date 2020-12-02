@@ -10,7 +10,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>왓플릭스</title>
+	<title>영화 평가 사이트</title>
 	<!-- 부트스트랩 CSS 추가 -->
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
 	<!-- Custom CSS 추가 -->
@@ -19,7 +19,27 @@
 <body>
 	<%
 		request.setCharacterEncoding("UTF-8");
-	
+		String genre = "전체";
+		String searchType = "최신순";
+		String search = "";
+		int pageNumber = 0;
+		if (request.getParameter("genre") != null) {
+			genre = request.getParameter("genre");
+		}
+		if (request.getParameter("searchType") != null) {
+			searchType = request.getParameter("searchType");
+		}
+		if (request.getParameter("search") != null) {
+			search = request.getParameter("search");
+		}
+		if (request.getParameter("pageNumber") != null) {
+			try {
+				pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+			} catch (Exception e) {
+				System.out.println("검색 페이지 번호 오류");
+			}
+			
+		}
 		String userID = null;
 		if (session.getAttribute("userID") != null) {
 			userID = (String)session.getAttribute("userID");

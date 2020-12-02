@@ -1,311 +1,179 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.io.PrintWriter" %>
-<%@ page import="user.UserDAO" %>
-<%@ page import="evaluation.EvaluationDTO" %>
-<%@ page import="evaluation.EvaluationDAO" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.net.URLEncoder" %>
-<!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>영화 평가 사이트</title>
-	<!-- 부트스트랩 CSS 추가 -->
-	<link rel="stylesheet" href="./css/bootstrap.min.css">
-	<!-- Custom CSS 추가 -->
-	<link rel="stylesheet" href="./css/custom.css">
-</head>
-<body>
-	<%
-		request.setCharacterEncoding("UTF-8");
-		String genre = "전체";
-		String searchType = "최신순";
-		String search = "";
-		int pageNumber = 0;
-		if (request.getParameter("genre") != null) {
-			genre = request.getParameter("genre");
-		}
-		if (request.getParameter("searchType") != null) {
-			searchType = request.getParameter("searchType");
-		}
-		if (request.getParameter("search") != null) {
-			search = request.getParameter("search");
-		}
-		if (request.getParameter("pageNumber") != null) {
-			try {
-				pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-			} catch (Exception e) {
-				System.out.println("검색 페이지 번호 오류");
-			}
-			
-		}
-		String userID = null;
-		if (session.getAttribute("userID") != null) {
-			userID = (String)session.getAttribute("userID");
-		}
-		if (userID == null) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('로그인을 해주세요.');");
-			script.println("location.href = 'userLogin.jsp'");
-			script.println("</script>");
-			script.close();
-			return;
-		}
-		boolean emailChecked = new UserDAO().getUserEmailChecked(userID);
-		if (emailChecked == false) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("location.href = 'emailSendConfirm.jsp'");
-			script.println("</script>");
-			script.close();
-			return;
-		}
-	%>
-	<jsp:include page="menu.jsp">
-		<jsp:param value="<%=userID %>" name="userID"/>
-	</jsp:include>
-	<section class="container">
-		<form method="GET" action="./index.jsp" class="form-inline mt-3">
-			<select name="genre" class="form-control mx-1 mt-2">
-				<option value="전체">전체</option>
-				<option value="한국" <% if(genre.contentEquals("한국")) out.println("selected"); %>>한국</option>
-				<option value="미국" <% if(genre.contentEquals("미국")) out.println("selected"); %>>미국</option>
-				<option value="외국" <% if(genre.contentEquals("외국")) out.println("selected"); %>>외국</option>
-			</select>
-			<select name="searchType" class="form-control mx-1 mt-2">
-				<option value="최신순">최신순</option>
-				<option value="추천순" <% if(genre.contentEquals("추천순")) out.println("selected"); %>>추천순</option>
-			</select>
-			<input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요">
-			<button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
-			<a class="btn btn-primary mx-1 mt-2" data-toggle="modal" href="#registerModal">등록하기</a>
-			<a class="btn btn-danger mx-1 mt-2" data-toggle="modal" href="#reportModal">신고</a>
-		</form>
-		<%
-			ArrayList<EvaluationDTO> evaluationList = new ArrayList<EvaluationDTO>();
-			evaluationList = new EvaluationDAO().getList(genre, searchType, search, pageNumber);
-			if (evaluationList != null) {
-				for (int i = 0; i < evaluationList.size(); i++) {
-					if (i == 5)	break;
-					EvaluationDTO evaluation = evaluationList.get(i);
-		%>
-		<div class="card bg-dark mt-3">
-			<div class="card-header bg-dark">
-				<div class="row">
-					<div class="col-8 text-left"><%= evaluation.getMovieTitle() %>&nbsp;<small><%= evaluation.getDirectorName() %></small></div> 
-					<div class="col-4 text-right">
-						종합<span style="color: red;"> <%=evaluation.getTotalScore() %></span>
-					</div>
-				</div>
-			</div>
-			<div class="card-body">
-				<h5 class="card-title">
-					<%= evaluation.getEvaluationTitle() %>&nbsp;
-				</h5>
-				<p class="card-text"><%= evaluation.getEvaluationContent() %></p>
-				<div class="row">
-					<div class="col-9 text-left">
-						스토리<span style="color: red;"> <%= evaluation.getStoryScore() %></span>
-						영상<span style="color: red;"> <%= evaluation.getVideoScore() %></span>
-						인물<span style="color: red;"> <%= evaluation.getCharacterScore() %></span>
-						<span style="color: green;">(추천: <%= evaluation.getLikeCount() %>)</span>
-					</div>
-					<div class="col-3 text-right">
-						<a onclick="return confirm('추천하시겠습니까?')" href="./likeAction.jsp?evaluationID=<%=evaluation.getEvaluationID()%>">추천</a>
-						<a onclick="return confirm('삭제하시겠습니까?')" href="./deleteAction.jsp?evaluationID=<%=evaluation.getEvaluationID()%>">삭제</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<%
-				}
-			}
-		%>
-	</section>
-	<ul class="pagination justify-content-center mt-3">
-		<li class="page-item">
-		<%
-			if (pageNumber <= 0) {
-		%>
-				<a class="page-link disabled">이전</a>
-		<%
-			} else {
-		%>
-				<a class="page-link" href="./index.jsp?genre=<%= URLEncoder.encode(genre, "UTF-8") %>&searchType=
-				<%= URLEncoder.encode(searchType, "UTF-8") %>&search=<%= URLEncoder.encode(search, "UTF-8") %>&pageNumber=
-				<%=pageNumber -1 %>">이전</a>
-		<%
-			}
-		%>
-		</li>
-		<li class="page-item">
-		<%
-			if (evaluationList.size() < 6) {
-		%>
-				<a class="page-link disabled">다음</a>
-		<%
-			} else {
-		%>
-				<a class="page-link" href="./index.jsp?genre=<%= URLEncoder.encode(genre, "UTF-8") %>&searchType=
-				<%= URLEncoder.encode(searchType, "UTF-8") %>&search=<%= URLEncoder.encode(search, "UTF-8") %>&pageNumber=
-				<%=pageNumber + 1 %>">다음</a>
-		<%
-			}
-		%>
-		
-		</li>
-		
-	</ul>
-	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modal">평가 등록</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form action="./evaluationRegisterAction.jsp" method="POST">
-						<div class="form-row">
-							<div class="form-group col-sm-6">
-								<label>영화 제목</label>
-								<input type="text" name="movieTitle" class="form-control" maxlength="20">
-							</div>
-							<div class="form-group col-sm-3">
-								<label>감독</label>
-								<input type="text" name="directorName" class="form-control" maxlength="20">
-							</div>
-							<div class="form-group col-sm-3">
-								<label>장르</label>
-								<select name="genre" class="form-control">
-									<option value="한국" selected>한국</option>
-									<option value="미국">미국</option>
-									<option value="외국">외국</option>
-								</select>
-							</div>
-						</div>
-						<div class="form-group">
-							<label>제목</label>
-							<input type="text" name="evaluationTitle" class="form-control" maxlength="30">
-						</div>
-						<div class="form-group">
-							<label>내용</label>
-							<textarea name="evaluationContent" class="form-control" maxlength="2048" style="height:180px;"></textarea>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-sm-3">
-								<label>종합</label>
-								<select name="totalScore" class="form-control">
-									<option value="10" selected>10</option>
-									<option value="9">9</option>
-									<option value="8">8</option>
-									<option value="7">7</option>
-									<option value="6">6</option>
-									<option value="5">5</option>
-									<option value="4">4</option>
-									<option value="3">3</option>
-									<option value="2">2</option>
-									<option value="1">1</option>
-									<option value="0">0</option>				
-								</select>
-							</div>
-							<div class="form-group col-sm-3">
-								<label>스토리</label>
-								<select name="storyScore" class="form-control">
-									<option value="10" selected>10</option>
-									<option value="9">9</option>
-									<option value="8">8</option>
-									<option value="7">7</option>
-									<option value="6">6</option>
-									<option value="5">5</option>
-									<option value="4">4</option>
-									<option value="3">3</option>
-									<option value="2">2</option>
-									<option value="1">1</option>
-									<option value="0">0</option>					
-								</select>
-							</div>
-							<div class="form-group col-sm-3">
-								<label>영상</label>
-								<select name="videoScore" class="form-control">
-									<option value="10" selected>10</option>
-									<option value="9">9</option>
-									<option value="8">8</option>
-									<option value="7">7</option>
-									<option value="6">6</option>
-									<option value="5">5</option>
-									<option value="4">4</option>
-									<option value="3">3</option>
-									<option value="2">2</option>
-									<option value="1">1</option>
-									<option value="0">0</option>						
-								</select>
-							</div>
-							<div class="form-group col-sm-3">
-								<label>인물</label>
-								<select name="characterScore" class="form-control">
-									<option value="10" selected>10</option>
-									<option value="9">9</option>
-									<option value="8">8</option>
-									<option value="7">7</option>
-									<option value="6">6</option>
-									<option value="5">5</option>
-									<option value="4">4</option>
-									<option value="3">3</option>
-									<option value="2">2</option>
-									<option value="1">1</option>
-									<option value="0">0</option>					
-								</select>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-							<button type="submit" class="btn btn-primary">등록하기</button>
-						</div>
-					</form>
-				</div>
-				
-			</div>
-		</div>
-	</div>
-	<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modal">신고하기</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form action="./reportAction.jsp" method="POST">
-						<div class="form-group">
-							<label>신고 제목</label>
-							<input type="text" name="reportTitle" class="form-control" maxlength="30">
-						</div>
-						<div class="form-group">
-							<label>신고 내용</label>
-							<textarea name="reportContent" class="form-control" maxlength="2048" style="height:180px;"></textarea>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-							<button type="submit" class="btn btn-danger">신고하기</button>
-						</div>
-					</form>
-				</div>
-				
-			</div>
-		</div>
-	</div>
-	<%@ include file="footer.jsp" %>
-	<!-- jQuery 추가 -->
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-	<!-- popper 추가 -->
-	<script src="./js/popper.js"></script>
-	<!-- 부트스트랩 js 추가 -->
-	<script src="./js/bootstrap.min.js"></script>
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>왓플릭스</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">왓플릭스</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="./userLogin.jsp">로그인</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="./userJoin.jsp">회원가입</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container d-flex h-100 align-items-center">
+                <div class="mx-auto text-center">
+                    <h1 class="mx-auto my-0 text-uppercase">왓플릭스</h1>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">무슨 영화가 좋을까? 이 영화는 어떨까?</h2>
+                    <a class="btn btn-primary js-scroll-trigger" href="#about">Get Started</a>
+                </div>
+            </div>
+        </header>
+        <!-- About-->
+        <section class="about-section text-center" id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2 class="text-white mb-4">Why 왓플릭스?</h2>
+                        <p class="text-white-50">
+                           		무슨 영화가 좋을까? 이 영화는 어떨까?<br/>
+                               	어떤 영화를 봐야할 지 고민인 당신에게 좋은 친구가 되어줄 수 있습니다.
+                        </p>
+                    </div>
+                </div>
+                <img class="img-fluid" src="assets/img/movie-popcon.jpg" alt="" />
+            </div>
+        </section>
+        <!-- Projects-->
+        <section class="projects-section bg-light" id="projects">
+            <div class="container">
+                <!-- Featured Project Row-->
+                <div class="row justify-content-center no-gutters">
+                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-02.jpg" alt="" /></div>
+                    <div class="col-lg-6 order-lg-first">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-right">
+                                    <h4 class="text-white">나만의 영화는 무엇인가요?</h4>
+                                    <p class="mb-0 text-white-50">나의 마음을 울린 영화를 공유해주세요.</p>
+                                    <hr class="d-none d-lg-block mb-0 mr-0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project One Row-->
+                <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-01.jpg" alt="" /></div>
+                    <div class="col-lg-6">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-left">
+                                    <h4 class="text-white">Misty</h4>
+                                    <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
+                                    <hr class="d-none d-lg-block mb-0 ml-0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Two Row-->
+                <div class="row justify-content-center no-gutters">
+                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-02.jpg" alt="" /></div>
+                    <div class="col-lg-6 order-lg-first">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-right">
+                                    <h4 class="text-white">Mountains</h4>
+                                    <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
+                                    <hr class="d-none d-lg-block mb-0 mr-0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Signup-->
+        <section class="signup-section" id="signup">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-lg-8 mx-auto text-center">
+                        <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+                        <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
+                        <form class="form-inline d-flex">
+                            <input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" type="email" placeholder="Enter email address..." />
+                            <button class="btn btn-primary mx-auto" type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact-->
+        <section class="contact-section bg-black">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Address</h4>
+                                <hr class="my-4" />
+                                <div class="small text-black-50">4923 Market Street, Orlando FL</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-envelope text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Email</h4>
+                                <hr class="my-4" />
+                                <div class="small text-black-50"><a href="#!">hello@yourdomain.com</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Phone</h4>
+                                <hr class="my-4" />
+                                <div class="small text-black-50">+1 (555) 902-8832</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social d-flex justify-content-center">
+                    <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                    <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                    <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright Â© Your Website 2020</div></footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
 </html>
