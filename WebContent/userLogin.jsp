@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>영화 평가 사이트</title>
+	<title>왓플릭스</title>
 	<link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
 	<!-- 부트스트랩 CSS 추가 -->
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
