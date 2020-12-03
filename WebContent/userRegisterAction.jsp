@@ -39,7 +39,7 @@
 		return;
 	} else {
 		UserDAO userDAO = new UserDAO();
-		int result = userDAO.join(new UserDTO(userID, userPassword, userEmail, SHA256.getSHA256(userEmail), false));
+		int result = userDAO.join(new UserDTO(userID, SHA256.getSHA256(userPassword), userEmail, SHA256.getSHA256(userEmail), false));
 		if (result == -1) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");

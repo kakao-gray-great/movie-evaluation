@@ -1,3 +1,4 @@
+<%@page import="util.SHA256"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="user.UserDAO"%>
 <%@ page import="java.io.PrintWriter"%>
@@ -5,6 +6,7 @@
 	request.setCharacterEncoding("UTF-8");
 	String userID = null;
 	String userPassword = null;
+	
 	if(request.getParameter("userID") != null) {
 		userID = (String) request.getParameter("userID");
 	}
@@ -22,7 +24,7 @@
 		return;
 	} else {
 		UserDAO userDAO = new UserDAO();
-		int result = userDAO.login(userID, userPassword);
+		int result = userDAO.login(userID, SHA256.getSHA256(userPassword));
 		if (result == 1) {
 			session.setAttribute("userID", userID);
 			PrintWriter script = response.getWriter();
