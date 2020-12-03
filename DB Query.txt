@@ -41,3 +41,7 @@ CREATE TABLE GUIDANCE (
 	descriptionContent varchar(1024),
 	descriptionImage varchar(50)
 );
+
+
+INSERT INTO GUIDANCE  VALUES (null, "7번방의 선물", "너무너무 재밌는데 7번방의 선물", "7번방의 선물.jpg");
+
