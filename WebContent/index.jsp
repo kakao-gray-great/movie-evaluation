@@ -1,6 +1,11 @@
 <%@page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="user.UserDAO"%>
+<%@ page import="com.oreilly.servlet.*" %>
+<%@ page import="com.oreilly.servlet.multipart.*" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="guidance.GuidanceDTO" %>
+<%@ page import="guidance.GuidanceDAO" %>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -134,15 +139,20 @@
     <!-- Projects-->
     <section class="projects-section bg-light" id="projects">
         <div class="container">
+        	<%
+        		ArrayList<GuidanceDTO> guidanceList = new ArrayList<>();
+        		guidanceList = new GuidanceDAO().getList();
+        		if (guidanceList != null) {
+        	%>
             <!-- Featured Project Row-->
             <div class="row justify-content-center no-gutters">
-                <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-02.jpg" alt="" /></div>
+                <div class="col-lg-6"><img class="img-fluid" src="assets/img/<%=guidanceList.get(0).getDescriptionImage() %>" alt="" /></div>
                 <div class="col-lg-6 order-lg-first">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-right">
-                                <h4 class="text-white">나만의 영화는 무엇인가요?</h4>
-                                <p class="mb-0 text-white-50">나의 마음을 울린 영화를 공유해주세요.</p>
+                                <h4 class="text-white"><%= guidanceList.get(0).getDescriptionTitle() %>&nbsp;</h4>
+                                <p class="mb-0 text-white-50"><%= guidanceList.get(0).getDescriptionContent() %>&nbsp;</p>
                                 <hr class="d-none d-lg-block mb-0 mr-0" />
                             </div>
                         </div>
@@ -151,13 +161,13 @@
             </div>
             <!-- Project One Row-->
             <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-01.jpg" alt="" /></div>
+                <div class="col-lg-6"><img class="img-fluid" src="assets/img/<%=guidanceList.get(1).getDescriptionImage() %>" alt="" /></div>
                 <div class="col-lg-6">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-left">
-                                <h4 class="text-white">Misty</h4>
-                                <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
+                                <h4 class="text-white"><%= guidanceList.get(1).getDescriptionTitle() %>&nbsp;</h4>
+                                <p class="mb-0 text-white-50"><%= guidanceList.get(1).getDescriptionContent() %>&nbsp;</p>
                                 <hr class="d-none d-lg-block mb-0 ml-0" />
                             </div>
                         </div>
@@ -166,19 +176,23 @@
             </div>
             <!-- Project Two Row-->
             <div class="row justify-content-center no-gutters">
-                <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-02.jpg" alt="" /></div>
+                <div class="col-lg-6"><img class="img-fluid" src="assets/img/<%=guidanceList.get(2).getDescriptionImage() %>" alt="" /></div>
                 <div class="col-lg-6 order-lg-first">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-right">
-                                <h4 class="text-white">Mountains</h4>
-                                <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
+                                <h4 class="text-white"><%= guidanceList.get(2).getDescriptionTitle() %>&nbsp;</h4>
+                                <p class="mb-0 text-white-50"><%= guidanceList.get(2).getDescriptionContent() %>&nbsp;</p>
                                 <hr class="d-none d-lg-block mb-0 mr-0" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <% 
+        		}
+            %>
+            
         </div>
     </section>   
     <!-- Footer-->
