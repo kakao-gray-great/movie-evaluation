@@ -102,14 +102,14 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="./reportAction.jsp" method="POST">
+					<form action="./adminModalAction.jsp" method="POST" class="form-horizontal" enctype="multipart/form-data">
 						<div class="form-row">
 							<div class="form-group col-sm-10">
 								<label>제목</label> <input type="text" name="descriptionTitle" class="form-control" maxlength="30">
 							</div>
 							<div class="form-group col-sm-2">
 								<label>인덱스</label>
-								<select name="descriptionTitle" class="form-control">
+								<select name="descriptionID" class="form-control">
 									<option value="1" selected>1</option>
 									<option value="2">2</option>
 									<option value="3">3</option>				
@@ -128,7 +128,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-							<button type="submit" class="btn btn-primary">신고하기</button>
+							<button type="submit" class="btn btn-primary">변경하기</button>
 						</div>
 					</form>
 				</div>
