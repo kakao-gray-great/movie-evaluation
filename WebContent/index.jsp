@@ -49,7 +49,7 @@
                    		try {
                    			if (userID.equals("admin")) {
 	                %>
-	                			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="./adminPage.jsp">관리자</a></li>
+	                		<li class="nav-item"><a data-toggle="modal" class="nav-link"  href="#adminModal">관리자</a></li>
 	                <%
                    			}
                    		} catch (Exception e) {   
@@ -85,6 +85,52 @@
             <img class="img-fluid" src="assets/img/movie-popcon.jpg" alt="" />
         </div>
     </section>
+
+    <!-- Admin Modal -->
+	<div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal">이용방법 내용 변경</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="./reportAction.jsp" method="POST">
+						<div class="form-row">
+							<div class="form-group col-sm-10">
+								<label>제목</label> <input type="text" name="descriptionTitle" class="form-control" maxlength="30">
+							</div>
+							<div class="form-group col-sm-2">
+								<label>인덱스</label>
+								<select name="descriptionTitle" class="form-control">
+									<option value="1" selected>1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>				
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>내용</label>
+							<textarea name="descriptionContent" class="form-control" maxlength="2048" style="height: 180px;"></textarea>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-2">이미지</label>
+							<div class="col-sm-10">
+								<input type="file" name="descriptionImage" class="form-control">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+							<button type="submit" class="btn btn-primary">신고하기</button>
+						</div>
+					</form>
+				</div>
+	
+			</div>
+		</div>
+	</div>
     <!-- Projects-->
     <section class="projects-section bg-light" id="projects">
         <div class="container">
