@@ -10,7 +10,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>영화 평가 사이트</title>
+	<title>왓플릭스</title>
 	<link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
 	<!-- 부트스트랩 CSS 추가 -->
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -163,7 +163,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="modal">평가 등록</h5>
+					<h5 class="modal-title" id="modal">나의 영화를 공유해주세요!</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
