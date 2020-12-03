@@ -32,3 +32,12 @@ CREATE TABLE LIKEY (
 
 // 좋아요 테이블 primary key 설정
 ALTER TABLE LIKEY ADD PRIMARY KEY (userID, evaluationID);
+
+
+// 메인 페이지 왓플릭스 안내
+CREATE TABLE GUIDANCE (
+	descriptionID int PRIMARY KEY AUTO_INCREMENT,
+	descriptionTitle varchar(50),
+	descriptionContent varchar(1024),
+	descriptionImage varchar(50)
+);
