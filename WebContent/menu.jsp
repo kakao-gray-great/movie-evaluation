@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <nav class="navbar navbar-expand-lg navbar-black bg-black">
 		<a class="navbar-brand" href="index.jsp">왓플릭스</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
