@@ -1,4 +1,6 @@
+<%@page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="user.UserDAO"%>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,6 +18,12 @@
     <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body id="page-top">
+	<%
+		String userID = null;
+		if (session.getAttribute("userID") != null) {
+			userID = (String)session.getAttribute("userID");
+		}
+	%>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
@@ -26,9 +34,28 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="./userLogin.jsp">로그인</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">왓플릭스란</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">이용방법</a></li>
+                    <%
+                		if (userID != null) {
+	                %>
+                			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="./userLogout.jsp">로그아웃</a></li>
+	                <%
+                		} else {
+                	%>
+                			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="./userLogin.jsp">로그인</a></li>
+                	<%
+                		}
+                   		try {
+                   			if (userID.equals("admin")) {
+	                %>
+	                			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="./adminPage.jsp">관리자</a></li>
+	                <%
+                   			}
+                   		} catch (Exception e) {   
+                   			e.printStackTrace();
+           				} 
+                   	%>
                 </ul>
             </div>
         </div>
