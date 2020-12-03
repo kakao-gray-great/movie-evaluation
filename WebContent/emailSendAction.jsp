@@ -79,15 +79,16 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>영화 평가 사이트</title>
+	<title>왓플릭스</title>
+	<link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
 	<!-- 부트스트랩 CSS 추가 -->
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
 	<!-- Custom CSS 추가 -->
 	<link rel="stylesheet" href="./css/custom.css">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="index.jsp">영화 평가 사이트</a>
+	<nav class="navbar navbar-expand-lg navbar-black bg-black">
+		<a class="navbar-brand" href="index.jsp">왓플릭스</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -127,9 +128,7 @@
 			이메일 주소 인증 메일이 전송되었습니다. 회원가입 시 입력했던 이메일에서 인증해주세요.
 		</div>
 	</section>
-	<footer class="bg-dark mt-4 p-5 text-center" style="color:#FFFFFF;">
-		Copyright &copy; 2020 박준형 All Rights Reserved.
-	</footer>
+	<%@ include file="footer.jsp" %>
 	<!-- jQuery 추가 -->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 	<!-- popper 추가 -->
