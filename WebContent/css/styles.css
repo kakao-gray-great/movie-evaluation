@@ -9866,6 +9866,7 @@ button.bg-black:focus {
 
 .text-center {
   text-align: center !important;
+  background: #000;
 }
 
 @media (min-width: 576px) {

@@ -6,6 +6,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="guidance.GuidanceDTO" %>
 <%@ page import="guidance.GuidanceDAO" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -29,26 +30,28 @@
 			userID = (String)session.getAttribute("userID");
 		}
 	%>
+	<fmt:setLocale value='<%= request.getParameter("language") %>' />
+	<fmt:bundle basename="bundle.message">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">왓플릭스</a>
+            <a class="navbar-brand js-scroll-trigger" href="#page-top"><fmt:message key="title"/></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">왓플릭스란</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">이용방법</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about"><fmt:message key="about"/></a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects"><fmt:message key="projects"/></a></li>
                     <%
                 		if (userID != null) {
 	                %>
-                			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="./userLogout.jsp">로그아웃</a></li>
+                			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="./userLogout.jsp"><fmt:message key="logout"/></a></li>
 	                <%
                 		} else {
                 	%>
-                			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="./userLogin.jsp">로그인</a></li>
+                			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="./userLogin.jsp"><fmt:message key="login"/></a></li>
                 	<%
                 		}
                    		try {
@@ -69,7 +72,7 @@
     <header class="masthead">
         <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto text-center">
-                <h1 class="mx-auto my-0 text-uppercase">왓플릭스</h1>
+                <h1 class="mx-auto my-0 text-uppercase"><fmt:message key="title"/></h1>
                 <h2 class="text-white-50 mx-auto mt-2 mb-5">무슨 영화가 좋을까? 이 영화는 어떨까?</h2>
                 <a class="btn btn-primary js-scroll-trigger" href="./main.jsp">Get Started</a>
             </div>
@@ -80,7 +83,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
-                    <h2 class="text-white mb-4">Why 왓플릭스?</h2>
+                    <h2 class="text-white mb-4">Why <fmt:message key="title"/>?</h2>
                     <p class="text-white-50">
                        		무슨 영화가 좋을까? 이 영화는 어떨까?<br/>
                            	어떤 영화를 봐야할 지 고민인 당신에게 좋은 친구가 되어줄 수 있습니다.
@@ -136,6 +139,7 @@
 			</div>
 		</div>
 	</div>
+	</fmt:bundle>
     <!-- Projects-->
     <section class="projects-section bg-light" id="projects">
         <div class="container">
@@ -194,7 +198,10 @@
             %>
             
         </div>
-    </section>   
+    </section>
+    <div class="text-center">
+    	<a href="?language=ko">Korean</a>|<a href="?language=en">English</a>
+    </div>
     <!-- Footer-->
     <%@ include file="footer.jsp" %>
     <!-- Bootstrap core JS-->
