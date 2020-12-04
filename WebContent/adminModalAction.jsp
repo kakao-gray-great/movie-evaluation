@@ -53,11 +53,6 @@
 	String fname = (String) files.nextElement();
 	descriptionImage = multi.getOriginalFileName(fname);
 	
-	System.out.println(descriptionID);
-	System.out.println(descriptionTitle);
-	System.out.println(descriptionContent);
-	System.out.println(descriptionImage);
-	
 	if (descriptionTitle == null || descriptionContent == null || descriptionImage == null || descriptionTitle.equals("")
 			|| descriptionContent.equals("") || descriptionImage.equals("")) {
 		PrintWriter script = response.getWriter();
@@ -80,7 +75,7 @@
 		} else {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href = 'main.jsp';");
+			script.println("location.href = 'index.jsp';");
 			script.println("</script>");
 			script.close();
 			return;
