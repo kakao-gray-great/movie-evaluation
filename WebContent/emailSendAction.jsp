@@ -33,8 +33,8 @@
 		script.println("</script>");
 		script.close();
 	}
-	String host = "http://oopsys6.iptime.org:8888/whatflix/";
-	String from = "operasystem6@gmail.com";
+	String host = "";
+	String from = "";
 	String to = userDAO.getUserEmail(userID);
 	System.out.print("sendAction" + userID);
 	System.out.print("sendAction" + to);
