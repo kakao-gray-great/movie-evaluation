@@ -33,10 +33,11 @@
 		script.println("</script>");
 		script.close();
 	}
-	
-	String host = "http://localhost:8080/Movie_Evaluation/";
+	String host = "http://oopsys6.iptime.org:8888/whatflix/";
 	String from = "operasystem6@gmail.com";
 	String to = userDAO.getUserEmail(userID);
+	System.out.print("sendAction" + userID);
+	System.out.print("sendAction" + to);
 	String subject = "이메일 인증 메일입니다.";
 	String content = "다음 링크에 접속하여 이메일 인증을 진행하세요." + "<a href='" + host + "emailCheckAction.jsp?code=" + new SHA256().getSHA256(to) + "'>이메일 인증하기</a>";
 	

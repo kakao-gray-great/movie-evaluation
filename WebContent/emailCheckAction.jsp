@@ -24,6 +24,9 @@
 		return;
 	}
 	String userEmail = userDAO.getUserEmail(userID);
+	System.out.println(userID);
+	System.out.println(userEmail);
+	
 	boolean isRight = (new SHA256().getSHA256(userEmail).equals(code)) ? true : false;
 	if (isRight == true) {
 		userDAO.setUserEmailChecked(userID);
@@ -37,6 +40,7 @@
 	} else {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
+		script.println("alert('userID')");
 		script.println("alert('유효하지 않은 코드입니다.');");
 		script.println("location.href = 'index.jsp';");
 		script.println("</script>");
