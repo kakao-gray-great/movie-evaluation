@@ -49,7 +49,7 @@
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('추천이 완료되었습니다.');");
-			script.println("location.href = 'index.jsp'");
+			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
 			script.close();
 			return;
