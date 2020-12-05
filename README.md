@@ -42,3 +42,4 @@
 
 - 메인 화면 (영화 평가 글 화면)
 ![main_1](https://user-images.githubusercontent.com/25001697/101227837-ab534c00-36dc-11eb-97aa-02f7365c248f.png)
+
